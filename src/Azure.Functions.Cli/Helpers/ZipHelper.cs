@@ -8,6 +8,7 @@ using Azure.Functions.Cli.Common;
 using Colors.Net;
 using Ionic.Zip;
 using static Colors.Net.StringStaticMethods;
+using static Azure.Functions.Cli.Common.OutputTheme;
 
 namespace Azure.Functions.Cli.Helpers
 {
@@ -23,13 +24,13 @@ namespace Azure.Functions.Cli.Helpers
 
             if (noBuild)
             {
-                ColoredConsole.WriteLine(Yellow("Skipping build event for functions project (--no-build)."));
+                ColoredConsole.WriteLine(DarkYellow("Skipping build event for functions project (--no-build)."));
             } else if (buildOption == BuildOption.Remote)
             {
-                ColoredConsole.WriteLine(Yellow("Performing remote build for functions project."));
+                ColoredConsole.WriteLine(DarkYellow("Performing remote build for functions project."));
             } else if (buildOption == BuildOption.Local)
             {
-                ColoredConsole.WriteLine(Yellow("Performing local build for functions project."));
+                ColoredConsole.WriteLine(DarkYellow("Performing local build for functions project."));
             }
 
             if (GlobalCoreToolsSettings.CurrentWorkerRuntime == WorkerRuntime.python && !noBuild)
@@ -59,7 +60,7 @@ namespace Azure.Functions.Cli.Helpers
                 return await CreateGoZip(files, rootPath, zipFilePath, goZipLocation);
             }
 
-            ColoredConsole.WriteLine(Yellow("Could not find gozip for packaging. Using DotNetZip to package. " +
+            ColoredConsole.WriteLine(WarningColor("Could not find gozip for packaging. Using DotNetZip to package. " +
                 "This may cause problems preserving file permissions when using in a Linux based environment."));
 
             return CreateDotNetZip(files, rootPath, zipFilePath);
